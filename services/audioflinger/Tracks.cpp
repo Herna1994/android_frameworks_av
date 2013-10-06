@@ -66,7 +66,7 @@ AudioFlinger::ThreadBase::TrackBase::TrackBase(
             audio_format_t format,
             audio_channel_mask_t channelMask,
             size_t frameCount,
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
             uint32_t flags,
 #endif
             const sp<IMemory>& sharedBuffer,
@@ -82,7 +82,7 @@ AudioFlinger::ThreadBase::TrackBase::TrackBase(
         mFormat(format),
         mChannelMask(channelMask),
         mChannelCount(popcount(channelMask)),
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
         mFrameSize((audio_is_linear_pcm(format) || audio_is_supported_compressed(format)) ?
         ((flags & IAudioFlinger::TRACK_VOICE_COMMUNICATION)? mChannelCount * sizeof(int16_t) : mChannelCount * audio_bytes_per_sample(format)) : sizeof(int8_t)),
 #else
@@ -90,7 +90,7 @@ AudioFlinger::ThreadBase::TrackBase::TrackBase(
                 mChannelCount * audio_bytes_per_sample(format) : sizeof(int8_t)),
 #endif
         mFrameCount(frameCount),
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
         mFlags(0),
 #endif
         mSessionId(sessionId),
@@ -107,7 +107,7 @@ AudioFlinger::ThreadBase::TrackBase::TrackBase(
 
     // ALOGD("Creating track with %d buffers @ %d bytes", bufferCount, bufferSize);
     size_t size = sizeof(audio_track_cblk_t);
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
     uint8_t channelCount = popcount(channelMask);
     size_t bufferSize = 0;
     if (flags & IAudioFlinger::TRACK_VOICE_COMMUNICATION) {
@@ -159,7 +159,7 @@ AudioFlinger::ThreadBase::TrackBase::TrackBase(
         mCblk->frameCount_ = frameCount;
         if (sharedBuffer == 0) {
             mBuffer = (char*)mCblk + sizeof(audio_track_cblk_t);
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
             if (flags & IAudioFlinger::TRACK_VOICE_COMMUNICATION) {
                 memset(mBuffer, 0, bufferSize);
             } else {
@@ -375,7 +375,7 @@ AudioFlinger::PlaybackThread::Track::Track(
             const sp<IMemory>& sharedBuffer,
             int sessionId,
             IAudioFlinger::track_flags_t flags)
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
     :   TrackBase(thread, client, sampleRate, format, channelMask, frameCount,
      ((audio_stream_type_t)streamType == AUDIO_STREAM_VOICE_CALL)? IAudioFlinger::TRACK_VOICE_COMMUNICATION:0x0,
      sharedBuffer, sessionId, true /*isOut*/),
@@ -1805,11 +1805,11 @@ AudioFlinger::RecordThread::RecordTrack::RecordTrack(
             audio_format_t format,
             audio_channel_mask_t channelMask,
             size_t frameCount,
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
             uint32_t flags,
 #endif
             int sessionId)
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
     :   TrackBase(thread, client, sampleRate, format, channelMask, frameCount,
         flags, 0 /*sharedBuffer*/, sessionId, false /*isOut*/),
 #else
@@ -1819,7 +1819,7 @@ AudioFlinger::RecordThread::RecordTrack::RecordTrack(
         mOverflow(false)
 {
     ALOGV("RecordTrack constructor");
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
     mFlags = flags;
 #endif
     if (mCblk != NULL) {

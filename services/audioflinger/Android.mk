@@ -54,6 +54,10 @@ LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/mm-audio/audio-effects
 endif
 # SRS Processing
 
+ifneq ($(filter caf bfam,$(TARGET_QCOM_AUDIO_VARIANT)),)
+    LOCAL_CFLAGS += -DQCOM_ENHANCED_AUDIO
+endif
+
 LOCAL_STATIC_LIBRARIES := \
     libscheduling_policy \
     libcpustats \

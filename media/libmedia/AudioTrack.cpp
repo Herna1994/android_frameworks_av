@@ -325,7 +325,7 @@ status_t AudioTrack::set(
     uint32_t channelCount = popcount(channelMask);
     mChannelCount = channelCount;
 
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_VOIP_ENABLED
     if ((streamType == AUDIO_STREAM_VOICE_CALL)
          && (channelCount == 1)
          && ((sampleRate == 8000 || sampleRate == 16000)))

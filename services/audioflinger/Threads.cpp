@@ -1287,7 +1287,7 @@ sp<AudioFlinger::PlaybackThread::Track> AudioFlinger::PlaybackThread::createTrac
     }
 
     if (mType == DIRECT) {
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
         if (((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_PCM)
                ||((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_AMR_NB)
                ||((format & AUDIO_FORMAT_MAIN_MASK) == AUDIO_FORMAT_AMR_WB)
@@ -4558,7 +4558,7 @@ bool AudioFlinger::RecordThread::threadLoop()
                         }
                         if (framesOut && (mFrameCount == mRsmpInIndex)) {
                             void *readInto;
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
                             int InputBytes;
                             /*Fix me: How does framesOut become 0 in this condition */
                             if (( framesOut != mFrameCount) &&
@@ -4588,7 +4588,7 @@ bool AudioFlinger::RecordThread::threadLoop()
                             }
 #endif
                             mBytesRead = mInput->stream->read(mInput->stream, readInto,
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
                                     InputBytes);
 #else
                                     mBufferSize);
@@ -4792,7 +4792,7 @@ sp<AudioFlinger::RecordThread::RecordTrack>  AudioFlinger::RecordThread::createR
         Mutex::Autolock _l(mLock);
 
         track = new RecordTrack(this, client, sampleRate,
-#ifdef QCOM_HARDWARE
+#ifdef QCOM_ENHANCED_AUDIO
                       format, channelMask, frameCount, *flags, sessionId);
 #else
                       format, channelMask, frameCount, sessionId);
