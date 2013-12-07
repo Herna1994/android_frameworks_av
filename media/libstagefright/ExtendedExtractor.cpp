@@ -128,7 +128,7 @@ void ExtendedExtractor::RegisterSniffers() {
     bool flag = true;
     //Register the remote sniffers with the DataSource.
     for(int i=0; i<snifferCount; i++) {
-        DataSource::RegisterSniffer(snifferArray[i], flag);
+        DataSource::RegisterSniffer_l(snifferArray[i], flag);
         flag = false;
     }
 }

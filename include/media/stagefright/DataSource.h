@@ -81,9 +81,7 @@ public:
             float *confidence, sp<AMessage> *meta);
 
 #ifdef QCOM_LEGACY_MMPARSER
-    static void RegisterSniffer(SnifferFunc func, bool isExtendedExtractor = false);
-#else
-    static void RegisterSniffer(SnifferFunc func);
+    static void RegisterSniffer_l(SnifferFunc func, bool isExtendedExtractor = false);
 #endif
     static void RegisterDefaultSniffers();
 
@@ -107,6 +105,11 @@ private:
     static List<SnifferFunc> gSniffers;
 #ifdef QCOM_LEGACY_MMPARSER
     static List<SnifferFunc>::iterator extendedSnifferPosition;
+#endif
+    static bool gSniffersRegistered;
+
+#ifndef QCOM_LEGACY_MMPARSER
+    static void RegisterSniffer_l(SnifferFunc func);
 #endif
 
     DataSource(const DataSource &);

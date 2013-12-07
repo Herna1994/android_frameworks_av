@@ -31,7 +31,8 @@ public:
 #ifdef QCOM_ENHANCED_AUDIO
                                 uint32_t flags,
 #endif
-                                int sessionId);
+                                int sessionId,
+                                int uid);
     virtual             ~RecordTrack();
 
     virtual status_t    start(AudioSystem::sync_event_t event, int triggerSession);
