@@ -515,9 +515,10 @@ const char CameraParameters::SCENE_MODE_DUSKDAWN[] = "dusk-dawn";
 const char CameraParameters::SCENE_MODE_FALL[] = "fall-color";
 const char CameraParameters::SCENE_MODE_FALL_COLOR[] = "fall-color";
 const char CameraParameters::SCENE_MODE_TEXT[] = "text";
-// add for huawei devices
-const char CameraParameters::SCENE_MODE_OFF[] = "off";
 #endif
+
+// add for huawei
+const char CameraParameters::SCENE_MODE_OFF[] = "off";
 static const char* portrait = "portrait";
 static const char* landscape = "landscape";
 
